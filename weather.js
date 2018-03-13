@@ -35,9 +35,10 @@ weather.post('/', function (req, res) {
         console.log('DateTime: ' + datetime);
     }
   
-   //res.setHeader('Content-Type', 'application/json');
-   //res.send(JSON.stringify({ 'speech': datetime, 'displayText': date }));
+   res.setHeader('Content-Type', 'application/json');
+   res.send(JSON.stringify({ 'speech': datetime, 'displayText': date }));
   
+   return;
    //let city = req.body.result.parameters['geo-city']; // city is a required param
   // Get the date for the weather forecast (if present)
   //let date = '';

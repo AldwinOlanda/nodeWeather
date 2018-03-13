@@ -7,9 +7,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
+var routes = require('./index');
 //var users = require('./routes/users');
-var weather = require('./routes/weather')
+var weather = require('./weather')
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 //app.use('/users', users);
-app.use('/weather', weather);
+app.use('/', weather);
 
 
 /* GET home page. */

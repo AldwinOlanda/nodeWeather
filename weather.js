@@ -34,8 +34,8 @@ weather.post('/', function (req, res) {
         console.log('DateTime: ' + datetime);
     }
   
-   res.setHeader('Content-Type', 'application/json');
-   res.send(JSON.stringify({ 'speech': datetime, 'displayText': date }));
+   //res.setHeader('Content-Type', 'application/json');
+   //res.send(JSON.stringify({ 'speech': datetime, 'displayText': date }));
   
    //let city = req.body.result.parameters['geo-city']; // city is a required param
   // Get the date for the weather forecast (if present)
@@ -48,25 +48,25 @@ weather.post('/', function (req, res) {
     //res.on('index', { title: +callWeatherApi('new york') });
 
     //callWeatherApi(city,date).then((output) => {
-  //callWeatherApi(datetime,date).then((output) => {
+   callWeatherApi(datetime).then((output) => {
         // Return the results of the weather API to Dialogflow
-   //     res.setHeader('Content-Type', 'application/json');
-   //     res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
+       res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
               
 
-    //}).catch((error) => {
+    }).catch((error) => {
         // If there is an error let the user know
-    //    res.setHeader('Content-Type', 'application/json');
-    //    res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
         
-   // });
+    });
 });
 
-function callWeatherApi(datetime,date) {
+function callWeatherApi(datetime) {
     return new Promise((resolve, reject) => {
         // Create the path for the HTTP request to get the weather
       let path = '//v1/environment/air-temperature' +
-            '?datetime=' + datetime + '&date=' + date;
+            '?datetime=' + datetime + '&date=' + datetime;
       
         //let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
          //   '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;

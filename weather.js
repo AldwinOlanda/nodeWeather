@@ -20,18 +20,18 @@ weather.use(bodyParser.json());
 /* GET home page. */
 weather.post('/', function (req, res) {
     //res.render('index', { title: 'Express' });
-    let date = '';
+    //let date = '';
     let datetime = '';
 
     if (req.body.result.parameters['datetime']) {
 
-        datetime = req.body.result.parameters['datetime']
+        datetime = req.body.result.parameters['datetime'];
           //.toISOString().replace(/\..+/, '');
 
         //var dateconcat = datetime.split(" ");
         //date = dateconcat[0];
 
-        console.log('Date: ' + date);
+        //console.log('Date: ' + date);
         console.log('DateTime: ' + datetime);
     }
   
@@ -53,8 +53,6 @@ weather.post('/', function (req, res) {
         // Return the results of the weather API to Dialogflow
        res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
-              
-
     }).catch((error) => {
         // If there is an error let the user know
         res.setHeader('Content-Type', 'application/json');

@@ -35,10 +35,10 @@ weather.post('/', function (req, res) {
         console.log('DateTime: ' + datetime);
     }
   
-   res.setHeader('Content-Type', 'application/json');
-   res.send(JSON.stringify({ 'speech': datetime, 'displayText': date }));
+   //res.setHeader('Content-Type', 'application/json');
+   //res.send(JSON.stringify({ 'speech': datetime, 'displayText': date }));
   
-   return;
+ 
    //let city = req.body.result.parameters['geo-city']; // city is a required param
   // Get the date for the weather forecast (if present)
   //let date = '';
@@ -76,6 +76,11 @@ function callWeatherApi(datetime,date) {
         //let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
          //   '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
         console.log('API Request: ' + host + path);
+      
+         res.setHeader('Content-Type', 'application/json');
+         res.send(JSON.stringify({ 'speech': host, 'displayText': path }));
+      
+      return 
         // Make the HTTP request to get the weather
         https.get({ host: host, path: path }, (res) => {
             let body = ''; // var to store the response chunks

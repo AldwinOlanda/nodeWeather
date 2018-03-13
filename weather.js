@@ -1,9 +1,20 @@
 ﻿'use strict';
-var express = require('express');
-var weather = express.Router();
-var http = require('http');
-var host = 'api.worldweatheronline.com';
-var wwoApiKey = '819cfaf349d44332a18154340181302';
+const express = require('express');
+const bodyParser = require("body-parser");
+
+const weather = express();
+
+const http = require('http');
+const host = 'api.worldweatheronline.com';
+const wwoApiKey = '819cfaf349d44332a18154340181302';
+
+weather.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+
+weather.use(bodyParser.json());
 
 /* GET home page. */
 weather.post('/', function (req, res) {
@@ -59,4 +70,6 @@ function callWeatherApi(city,date) {
     });
 };
 
-module.exports = weather;
+weather.listen(process.env.PORT || 8000, function() {
+  console.log("Server up and listening");
+});

@@ -24,10 +24,11 @@ weather.post('/', function (req, res) {
 
     if (req.body.result.parameters['datetime']) {
 
-        datetime = req.body.result.parameters['datetime'].toISOString().replace(/\..+/, '');
+        datetime = req.body.result.parameters['datetime']
+          //.toISOString().replace(/\..+/, '');
 
-        var dateconcat = datetime.split(" ");
-        date = dateconcat[0];
+        //var dateconcat = datetime.split(" ");
+        //date = dateconcat[0];
 
         console.log('Date: ' + date);
         console.log('DateTime: ' + datetime);

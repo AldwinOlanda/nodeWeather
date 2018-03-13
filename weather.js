@@ -30,7 +30,7 @@ weather.post('/', function (req, res) {
     
     //res.on('index', { title: +callWeatherApi('new york') });
 
-    callWeatherApi('new york','03/13/2018').then((output) => {
+    callWeatherApi(city,date).then((output) => {
         // Return the results of the weather API to Dialogflow
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ 'speech': output, 'displayText': output }));

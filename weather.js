@@ -6,7 +6,7 @@ var host = 'api.worldweatheronline.com';
 var wwoApiKey = '819cfaf349d44332a18154340181302';
 
 /* GET home page. */
-weather.get('/', function (req, res) {
+weather.post('/', function (req, res) {
     //res.render('index', { title: 'Express' });
     
     //res.on('index', { title: +callWeatherApi('new york') });

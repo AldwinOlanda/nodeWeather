@@ -35,8 +35,8 @@ weather.post('/', function (req, res) {
         console.log('DateTime: ' + datetime);
     }
   
-   //res.setHeader('Content-Type', 'application/json');
-   //res.send(JSON.stringify({ 'speech': datetime, 'displayText': date }));
+   res.setHeader('Content-Type', 'application/json');
+   res.send(JSON.stringify({ 'speech': datetime, 'displayText': date }));
   
    //let city = req.body.result.parameters['geo-city']; // city is a required param
   // Get the date for the weather forecast (if present)
@@ -49,16 +49,7 @@ weather.post('/', function (req, res) {
     //res.on('index', { title: +callWeatherApi('new york') });
 
     //callWeatherApi(city,date).then((output) => {
-   callWeatherApi(datetime,date).then((output) => {
-        // Return the results of the weather API to Dialogflow
-       res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
-    }).catch((error) => {
-        // If there is an error let the user know
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
-        
-    });
+   
 });
 
 function callWeatherApi(datetime,date) {

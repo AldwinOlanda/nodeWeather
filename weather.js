@@ -70,7 +70,9 @@ weather.post('/', function (req, res) {
 function callWeatherApi(datetime,date) {
     return new Promise((resolve, reject) => {
         // Create the path for the HTTP request to get the weather
-      let path = '/v1/environment/air-temperature' +
+      //let path = '/v1/environment/air-temperature' +
+      
+      let path = '/v1/environment/2-hour-weather-forecast' +
             '?date_time=' + encodeURIComponent(datetime) + '&date=' + date;
       
         //let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +

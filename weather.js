@@ -25,7 +25,7 @@ weather.post('/', function (req, res) {
 
     if (req.body.result.parameters['datetime']) {
 
-        datetime = req.body.result.parameters['datetime']+'T12:00:00';
+        datetime = encodeURIComponent(req.body.result.parameters['datetime']+'T12:00:00');
           //.toISOString().replace(/\..+/, '');
 
         //var dateconcat = datetime.split(" ");

@@ -5,8 +5,9 @@ const bodyParser = require("body-parser");
 const weather = express();
 
 const http = require('http');
-const host = 'api.worldweatheronline.com';
-const wwoApiKey = '819cfaf349d44332a18154340181302';
+const host = 'api.data.gov.sg';
+//const host = 'api.worldweatheronline.com';
+//const wwoApiKey = '819cfaf349d44332a18154340181302';
 
 weather.use(
   bodyParser.urlencoded({
@@ -65,7 +66,7 @@ weather.post('/', function (req, res) {
 function callWeatherApi(datetime) {
     return new Promise((resolve, reject) => {
         // Create the path for the HTTP request to get the weather
-      let path = '//v1/environment/air-temperature' +
+      let path = '/v1/environment/air-temperature' +
             '?datetime=' + datetime + '&date=' + datetime;
       
         //let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
@@ -78,16 +79,17 @@ function callWeatherApi(datetime) {
             res.on('end', () => {
                 // After all the data has been received parse the JSON for desired data
                 let response = JSON.parse(body);
-                let forecast = response['data']['weather'][0];
-                let location = response['data']['request'][0];
-                let conditions = response['data']['current_condition'][0];
-                let currentConditions = conditions['weatherDesc'][0]['value'];
+                let forecast = response['items']['readings'][0];
+                let location = response['metadata']['stations'][0];
+                //let conditions = response['data']['current_condition'][0];
+                //let currentConditions = conditions['weatherDesc'][0]['value'];
                 // Create response
-                let output = `Current conditions in the ${location['type']} 
-        ${location['query']} are ${currentConditions} with a projected high of
-        ${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
-        ${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
-        ${forecast['date']}.`;
+                //let output = `Current conditions in the ${location['type']} 
+        //${location['query']} are ${currentConditions} with a projected high of
+        //${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
+        //${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
+        //${forecast['date']}.`;
+              let output = 'Current condition in ${location['name']} with a ${forecast['value']}°C .`;
                 // Resolve the promise with the output text
                 console.log(output);
                 resolve(output);

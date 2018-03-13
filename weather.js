@@ -75,7 +75,7 @@ function callWeatherApi(datetime) {
         // Make the HTTP request to get the weather
         http.get({ host: host, path: path }, (res) => {
             let body = ''; // var to store the response chunks
-            res.on('data', (d) => { body += d; }); // store each response chunk
+            res.on('metadata', (d) => { body += d; }); // store each response chunk
             res.on('end', () => {
                 // After all the data has been received parse the JSON for desired data
                 let response = JSON.parse(body);

@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 
 const weather = express();
 
-const http = require('http');
+const https = require('https');
 const host = 'api.data.gov.sg';
 //const host = 'api.worldweatheronline.com';
 //const wwoApiKey = '819cfaf349d44332a18154340181302';
@@ -73,7 +73,7 @@ function callWeatherApi(datetime) {
          //   '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
         console.log('API Request: ' + host + path);
         // Make the HTTP request to get the weather
-        http.get({ host: host, path: path }, (res) => {
+        https.get({ host: host, path: path }, (res) => {
             let body = ''; // var to store the response chunks
             res.on('metadata', (d) => { body += d; }); // store each response chunk
             res.on('end', () => {

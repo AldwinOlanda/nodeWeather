@@ -19,18 +19,32 @@ weather.use(bodyParser.json());
 /* GET home page. */
 weather.post('/', function (req, res) {
     //res.render('index', { title: 'Express' });
-    
-   let city = req.body.result.parameters['geo-city']; // city is a required param
+    let date = '';
+    let datetime = '';
+
+    if (req.body.result.parameters['date']) {
+
+        datetime = req.body.result.parameters['date'].toISOString().replace(/\..+/, '');
+
+        var dateconcat = datetime.split(" ");
+        date = dateconcat[0];
+
+        console.log('Date: ' + date);
+        console.log('DateTime: ' + datetime);
+    }
+  
+   //let city = req.body.result.parameters['geo-city']; // city is a required param
   // Get the date for the weather forecast (if present)
-  let date = '';
-  if (req.body.result.parameters['date']) {
-    date = req.body.result.parameters['date'];
-    console.log('Date: ' + date);
-  }
+  //let date = '';
+  //if (req.body.result.parameters['date']) {
+  //  date = req.body.result.parameters['date'];
+  //  console.log('Date: ' + date);
+  //}
     
     //res.on('index', { title: +callWeatherApi('new york') });
 
-    callWeatherApi(city,date).then((output) => {
+    //callWeatherApi(city,date).then((output) => {
+  callWeatherApi(datetime,date).then((output) => {
         // Return the results of the weather API to Dialogflow
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
@@ -44,11 +58,14 @@ weather.post('/', function (req, res) {
     });
 });
 
-function callWeatherApi(city,date) {
+function callWeatherApi(datetime,date) {
     return new Promise((resolve, reject) => {
         // Create the path for the HTTP request to get the weather
-        let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
-            '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
+      let path = '//v1/environment/air-temperature' +
+            '?datetime=' + datetime + '&date=' + date;
+      
+        //let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
+         //   '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
         console.log('API Request: ' + host + path);
         // Make the HTTP request to get the weather
         http.get({ host: host, path: path }, (res) => {

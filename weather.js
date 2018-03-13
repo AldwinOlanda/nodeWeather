@@ -11,7 +11,7 @@ weather.get('/', function (req, res) {
     
     //res.on('index', { title: +callWeatherApi('new york') });
 
-    callWeatherApi('new york').then((output) => {
+    callWeatherApi('new york','03/13/2018').then((output) => {
         // Return the results of the weather API to Dialogflow
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
@@ -25,12 +25,11 @@ weather.get('/', function (req, res) {
     });
 });
 
-function callWeatherApi(city) {
+function callWeatherApi(city,date) {
     return new Promise((resolve, reject) => {
         // Create the path for the HTTP request to get the weather
         let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
-            '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey;
-            //+ '&date=' + date;
+            '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
         console.log('API Request: ' + host + path);
         // Make the HTTP request to get the weather
         http.get({ host: host, path: path }, (res) => {

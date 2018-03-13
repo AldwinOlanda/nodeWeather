@@ -20,6 +20,14 @@ weather.use(bodyParser.json());
 weather.post('/', function (req, res) {
     //res.render('index', { title: 'Express' });
     
+   let city = req.body.result.parameters['geo-city']; // city is a required param
+  // Get the date for the weather forecast (if present)
+  let date = '';
+  if (req.body.result.parameters['date']) {
+    date = req.body.result.parameters['date'];
+    console.log('Date: ' + date);
+  }
+    
     //res.on('index', { title: +callWeatherApi('new york') });
 
     callWeatherApi('new york','03/13/2018').then((output) => {

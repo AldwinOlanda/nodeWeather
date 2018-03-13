@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node weather"
   },
   "description": "ExpressApp2",
   "author": {
-    "name": "P1253794"
+    "name": "Weatherforecast"
   },
   "dependencies": {
     "body-parser": "^1.15.0",

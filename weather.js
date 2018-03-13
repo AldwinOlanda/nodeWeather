@@ -79,10 +79,10 @@ function callWeatherApi(datetime,date) {
          //   '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
         console.log('API Request: ' + host + path);
       
-         res.setHeader('Content-Type', 'application/json');
-         res.send(JSON.stringify({ 'speech': host, 'displayText': path }));
+         //res.setHeader('Content-Type', 'application/json');
+         //res.send(JSON.stringify({ 'speech': host, 'displayText': path }));
       
-      return 
+      //return 
         // Make the HTTP request to get the weather
         https.get({ host: host, path: path }, (res) => {
             let body = ''; // var to store the response chunks

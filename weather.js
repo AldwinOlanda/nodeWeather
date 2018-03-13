@@ -86,12 +86,12 @@ function callWeatherApi(datetime,date) {
         // Make the HTTP request to get the weather
         https.get({ host: host, path: path }, (res) => {
             let body = ''; // var to store the response chunks
-            res.on('metadata', (d) => { body += d; }); // store each response chunk
+            res.on('items', (d) => { body += d; }); // store each response chunk
             res.on('end', () => {
                 // After all the data has been received parse the JSON for desired data
                 let response = JSON.parse(body);
-                let forecast = response['items']['readings'][0];
-                let location = response['stations'][0];
+                let forecast = response['items']['forecasts'][0];
+                let location = response['items']['forecasts'][0];
                 //let conditions = response['data']['current_condition'][0];
                 //let currentConditions = conditions['weatherDesc'][0]['value'];
                 // Create response
@@ -100,7 +100,7 @@ function callWeatherApi(datetime,date) {
         //${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
         //${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
         //${forecast['date']}.`;
-              let output = `Current condition in ${location['name']} with a ${forecast['value']}°C .`;
+              let output = `Current condition in ${location['name']} with a ${forecast['forecast']}°C .`;
                 // Resolve the promise with the output text
                 console.log(output);
                 resolve(output);

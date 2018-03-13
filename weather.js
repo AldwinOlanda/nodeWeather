@@ -20,16 +20,16 @@ weather.use(bodyParser.json());
 /* GET home page. */
 weather.post('/', function (req, res) {
     //res.render('index', { title: 'Express' });
-    //let date = '';
+    let date = '';
     let datetime = '';
 
     if (req.body.result.parameters['datetime']) {
 
-        datetime = req.body.result.parameters['datetime'];
+        datetime = req.body.result.parameters['datetime']+'T12:00:00';
           //.toISOString().replace(/\..+/, '');
 
         //var dateconcat = datetime.split(" ");
-        //date = dateconcat[0];
+        date  = req.body.result.parameters['datetime'];
 
         //console.log('Date: ' + date);
         console.log('DateTime: ' + datetime);
@@ -49,7 +49,7 @@ weather.post('/', function (req, res) {
     //res.on('index', { title: +callWeatherApi('new york') });
 
     //callWeatherApi(city,date).then((output) => {
-   callWeatherApi(datetime).then((output) => {
+   callWeatherApi(datetime,date).then((output) => {
         // Return the results of the weather API to Dialogflow
        res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
@@ -61,11 +61,11 @@ weather.post('/', function (req, res) {
     });
 });
 
-function callWeatherApi(datetime) {
+function callWeatherApi(datetime,date) {
     return new Promise((resolve, reject) => {
         // Create the path for the HTTP request to get the weather
       let path = '/v1/environment/air-temperature' +
-            '?date_time=' + datetime + '&date=' + datetime;
+            '?date_time=' + datetime + '&date=' + date;
       
         //let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
          //   '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;

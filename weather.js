@@ -65,7 +65,7 @@ function callWeatherApi(datetime) {
     return new Promise((resolve, reject) => {
         // Create the path for the HTTP request to get the weather
       let path = '/v1/environment/air-temperature' +
-            '?datetime=' + datetime + '&date=' + datetime;
+            '?date_time=' + datetime + '&date=' + datetime;
       
         //let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
          //   '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
@@ -87,7 +87,7 @@ function callWeatherApi(datetime) {
         //${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
         //${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
         //${forecast['date']}.`;
-              let output = 'Current condition in ${location['name']} with a ${forecast['value']}°C .`;
+              let output = `Current condition in ${location['name']} with a ${forecast['value']}°C .`;
                 // Resolve the promise with the output text
                 console.log(output);
                 resolve(output);

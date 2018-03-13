@@ -22,9 +22,9 @@ weather.post('/', function (req, res) {
     let date = '';
     let datetime = '';
 
-    if (req.body.result.parameters['date']) {
+    if (req.body.result.parameters['datetime']) {
 
-        datetime = req.body.result.parameters['date'].toISOString().replace(/\..+/, '');
+        datetime = req.body.result.parameters['datetime'].toISOString().replace(/\..+/, '');
 
         var dateconcat = datetime.split(" ");
         date = dateconcat[0];

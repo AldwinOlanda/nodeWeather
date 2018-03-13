@@ -77,7 +77,7 @@ function callWeatherApi(datetime) {
             res.on('end', () => {
                 // After all the data has been received parse the JSON for desired data
                 let response = JSON.parse(body);
-                let forecast = response['items']['readings'][0];
+                let forecast = response['metadata']['items']['readings'][0];
                 let location = response['metadata']['stations'][0];
                 //let conditions = response['data']['current_condition'][0];
                 //let currentConditions = conditions['weatherDesc'][0]['value'];

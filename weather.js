@@ -68,7 +68,7 @@ function callWeatherApi(datetime,date) {
                 let i = 0;
                 let output = '';
                 for (i = 0; i != forecasts.length; i++) {
-                    output = output + `${forecasts[i]['area']} +' - '+ ${forecasts[i]['forecast']} +'\n'`;
+                    output = output + forecasts[i]['area']} +' - '+ forecasts[i]['forecast'] +'\n';
                 }
               
                 //let forecast = response['items']['forecasts'][0];

@@ -93,9 +93,9 @@ function callWeatherApi(datetime,date) {
                 forecasts =items[0]['forecasts'];
               
                 let i = 0;
-                let forecastlist = '';
+                let output = '';
                 for (i = 0; i != forecasts.length; i++) {
-                    forecastlist = forecastlist + forecasts[i]['area'] +' - '+ forecasts[i]['forecast']+'\n';
+                    output = output + forecasts[i]['area'] +' - '+ forecasts[i]['forecast']+'\n';
                 }
               
                 //let forecast = response['items']['forecasts'][0];
@@ -110,8 +110,8 @@ function callWeatherApi(datetime,date) {
         //${forecast['date']}.`;
               //let output = `Current condition in ${location['name']} with a ${forecast['forecast']}°C .`;
                 // Resolve the promise with the output text
-                console.log(forecastlist);
-                resolve(forecastlist);
+                console.log(output);
+                resolve(output);
             });
             res.on('error', (error) => {
                 reject(error);

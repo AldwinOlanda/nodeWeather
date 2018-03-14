@@ -23,34 +23,13 @@ weather.post('/', function (req, res) {
     let date = '';
     let datetime = '';
 
+    /* Check if the Datetime parameter exist */
     if (req.body.result.parameters['datetime']) {
-
+        /* Include time inside the datetime parameter */
         datetime = req.body.result.parameters['datetime']+'T12:00:00';
-          //.toISOString().replace(/\..+/, '');
-
-        //var dateconcat = datetime.split(" ");
         date  = req.body.result.parameters['datetime'];
-
-        //console.log('Date: ' + date);
-        console.log('DateTime: ' + datetime);
     }
-  
-   //res.setHeader('Content-Type', 'application/json');
-   //res.send(JSON.stringify({ 'speech': datetime, 'displayText': date }));
-  
- 
-   //let city = req.body.result.parameters['geo-city']; // city is a required param
-  // Get the date for the weather forecast (if present)
-  //let date = '';
-  //if (req.body.result.parameters['date']) {
-  //  date = req.body.result.parameters['date'];
-  //  console.log('Date: ' + date);
-  //}
-    
-    //res.on('index', { title: +callWeatherApi('new york') });
-
-    //callWeatherApi(city,date).then((output) => {
-  
+  /* execute the callWeatherAPI function   */
   callWeatherApi(datetime,date).then((output) => {
         // Return the results of the weather API to Dialogflow
        res.setHeader('Content-Type', 'application/json');
@@ -61,26 +40,20 @@ weather.post('/', function (req, res) {
         res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
         
     });
- 
-   
+    
 });
 
 function callWeatherApi(datetime,date) {
     return new Promise((resolve, reject) => {
         // Create the path for the HTTP request to get the weather
-      //let path = '/v1/environment/air-temperature' +
-      
       let path = '/v1/environment/2-hour-weather-forecast' +
             '?date_time=' + encodeURIComponent(datetime) + '&date=' + date;
-      
-        //let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
-         //   '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
-        console.log('API Request: ' + host + path);
+             console.log('API Request: ' + host + path);
       
          //res.setHeader('Content-Type', 'application/json');
          //res.send(JSON.stringify({ 'speech': host, 'displayText': path }));
+         //return 
       
-      //return 
         // Make the HTTP request to get the weather
         https.get({ host: host, path: path }, (res) => {
             let body = ''; // var to store the response chunks
@@ -90,12 +63,12 @@ function callWeatherApi(datetime,date) {
                 let response = JSON.parse(body);
                 let items = response.items;
                 let forecasts = [];
-                forecasts =items[0]['forecasts'];
+                forecasts = items[0]['forecasts'];
               
                 let i = 0;
                 let output = '';
                 for (i = 0; i != forecasts.length; i++) {
-                    output = output + forecasts[i]['area'] +' - '+ forecasts[i]['forecast']+'\n';
+                    output = output + `${forecasts[i]['area']} +' - '+ ${forecasts[i]['forecast']} +'\n'`;
                 }
               
                 //let forecast = response['items']['forecasts'][0];

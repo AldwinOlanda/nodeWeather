@@ -29,10 +29,10 @@ weather.post('/', function (req, res) {
     
 
     /* Check if the Datetime parameter exist */
-    if (req.body.result.parameters['datetime']) {
+    if (req.body.result.parameters['date']) {
         /* Include time inside the datetime parameter */
-        datetime = req.body.result.parameters['datetime']+'T12:00:00';
-        date  = req.body.result.parameters['datetime'];
+        datetime = req.body.result.parameters['date']+'T12:00:00';
+        date  = req.body.result.parameters['date'];
     }
   /* execute the callWeatherAPI function   */
   callWeatherApi(datetime,date,sglocation).then((output) => {

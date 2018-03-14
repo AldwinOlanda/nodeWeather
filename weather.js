@@ -76,9 +76,8 @@ function callWeatherApi(datetime,date,location) {
                   
                     if (forecasts[i]['area']==location){
                          output = forecasts[i]['forecast'];
+                         break;                 
                         }
-                    break;
-                   
                 }
               
                 // Resolve the promise with the output text

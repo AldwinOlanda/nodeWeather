@@ -61,9 +61,7 @@ weather.post('/', function (req, res) {
         res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
         
     });
-
-  
-  
+ 
    
 });
 
@@ -90,8 +88,18 @@ function callWeatherApi(datetime,date) {
             res.on('end', () => {
                 // After all the data has been received parse the JSON for desired data
                 let response = JSON.parse(body);
-                let forecast = response['items']['forecasts'][0];
-                let location = response['items']['forecasts'][0];
+                let items = response.items;
+                let forecasts = [];
+                forecasts =items[0]['forecasts'];
+              
+                let i = 0;
+                let forecastlist = '';
+                for (i = 0; i != forecasts.length; i++) {
+                    forecastlist = forecastlist + forecasts[i]['area'] +' - '+ forecasts[i]['forecast']+'\n';
+                }
+              
+                //let forecast = response['items']['forecasts'][0];
+                //let location = response['items']['forecasts'][0];
                 //let conditions = response['data']['current_condition'][0];
                 //let currentConditions = conditions['weatherDesc'][0]['value'];
                 // Create response
@@ -100,10 +108,10 @@ function callWeatherApi(datetime,date) {
         //${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
         //${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
         //${forecast['date']}.`;
-              let output = `Current condition in ${location['name']} with a ${forecast['forecast']}°C .`;
+              //let output = `Current condition in ${location['name']} with a ${forecast['forecast']}°C .`;
                 // Resolve the promise with the output text
-                console.log(output);
-                resolve(output);
+                console.log(forecastlist);
+                resolve(forecastlist);
             });
             res.on('error', (error) => {
                 reject(error);

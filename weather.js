@@ -20,8 +20,13 @@ weather.use(bodyParser.json());
 /* GET home page. */
 weather.post('/', function (req, res) {
     //res.render('index', { title: 'Express' });
+   
+    let sglocation = req.body.result.parameters['location'];
+  
     let date = '';
     let datetime = '';
+  
+    
 
     /* Check if the Datetime parameter exist */
     if (req.body.result.parameters['datetime']) {
@@ -30,7 +35,7 @@ weather.post('/', function (req, res) {
         date  = req.body.result.parameters['datetime'];
     }
   /* execute the callWeatherAPI function   */
-  callWeatherApi(datetime,date).then((output) => {
+  callWeatherApi(datetime,date,sglocation).then((output) => {
         // Return the results of the weather API to Dialogflow
        res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
@@ -43,7 +48,7 @@ weather.post('/', function (req, res) {
     
 });
 
-function callWeatherApi(datetime,date) {
+function callWeatherApi(datetime,date,location) {
     return new Promise((resolve, reject) => {
         // Create the path for the HTTP request to get the weather
       let path = '/v1/environment/2-hour-weather-forecast' +
@@ -68,20 +73,14 @@ function callWeatherApi(datetime,date) {
                 let i = 0;
                 let output = '';
                 for (i = 0; i != forecasts.length; i++) {
-                    output = output + forecasts[i]['area'] +' - '+ forecasts[i]['forecast'] +'\n';
+                  
+                    if (forecasts[i]['area']==location){
+                         output = forecasts[i]['forecast'];
+                        }
+                    break;
+                   
                 }
               
-                //let forecast = response['items']['forecasts'][0];
-                //let location = response['items']['forecasts'][0];
-                //let conditions = response['data']['current_condition'][0];
-                //let currentConditions = conditions['weatherDesc'][0]['value'];
-                // Create response
-                //let output = `Current conditions in the ${location['type']} 
-        //${location['query']} are ${currentConditions} with a projected high of
-        //${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
-        //${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
-        //${forecast['date']}.`;
-              //let output = `Current condition in ${location['name']} with a ${forecast['forecast']}°C .`;
                 // Resolve the promise with the output text
                 console.log(output);
                 resolve(output);
